@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+    <head>
+        <title>jQuery LimitSlider</title>
+		<!-- jQuery/jQueryUI (hosted) -->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/jquery-ui.js"></script>
+		<script src="http://jqueryui.com/themeroller/themeswitchertool/"></script>
+		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.16/themes/ui-lightness/jquery-ui.css" rel="stylesheet" type="text/css"/>
+        <style>
+			body {
+				font-family:	'Segoe UI', Verdana, Arial, Helvetica, sans-serif;
+				font-size:		62.5%;
+			}
+
+			#switcher {
+				float: 			right;
+				display: 		inline-block;
+			}
+        </style>
+		<script src="jquery.limitslider.js"></script>
+        <script>
+           	$( function() {
+				$('#switcher').themeswitcher();
+            });
+        </script>
+    </head>
+    <body>
+        <div id="switcher"></div>
+
+		<h1>jQuery LimitSlider</h1>
+
+		<h2>Basic limit</h2>
+		<div id="basic"></div>
+		<script>
+           	$(function() {
+				$('#basic').limitslider({
+					values:	[20,50,60],
+					min:	0,
+					max:	100
+			   });
+			});
+		</script>
+
+		<hr/>
+
+		<h2>10% gap</h2>
+		<div id="gap10"></div>
+		<script>
+           	$(function() {
+				$('#gap10').limitslider({
+					values:	[20,50,60],
+					min:	0,
+					max:	100,
+					gap:	10
+			   });
+			});
+		</script>
+
+		<hr/>
+
+		<h2>Basic limit</h2>
+		<div id="vertical"></div>
+		<script>
+           	$(function() {
+				$('#vertical').limitslider({
+					orientation: 'vertical',
+					values:	[20,50,60],
+					min:	0,
+					max:	100
+			   });
+			});
+		</script>
+    </body>
+</html>
