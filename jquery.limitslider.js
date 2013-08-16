@@ -4,41 +4,32 @@
 /*
  * LimitSlider
  *
- * Copyright (c) 2011-2012 Martijn W. van der Lee
+ * Copyright (c) 2011-2013 Martijn W. van der Lee
  * Licensed under the MIT.
  *
  * Slider extension with forced limits and gaps.
  * Optional ranges, titles and labels.
  */
 
-//@bug Range may be off by a few points when dragging quickly.
-//@todo trigger init?
-//@todo Split up into several parts?
-//@todo gaps (matches "ranges")?
-//@todo vertical support for ranges
-//@todo extension mechanism? extra pre/post callback?
-//@todo tickers		jquery.sliderTickers -> hook in/out?
-//@todo titles		jquery.sliderTitles
-//@todo labels		jquery.sliderLabels
-
-(function ($) {
+;(function ($) {
 	"use strict";
 
 	$.widget('ui.limitslider', $.ui.slider, {
 		options: $.extend({
-			'gap':        0,
-			'limit':      undefined,
-			'limits':     undefined,
-			'ranges':     [true,false,false,true],
-			'title':      false,
-			'label':      false
+			'gap':			0,
+			'left':			undefined,
+			'right':		undefined,
+			'limit':		undefined,
+			'limits':		undefined,
+			'ranges':		[],
+			'title':		false,
+			'label':		false,
+			'showRanges':	false
 		}, $.ui.slider.prototype.options),
 
 		_create: function() {
-			var options = this.options;
-
-			if (!options.values) {
-				options.values = [options.value];
+			if (!this.options.values) {
+				this.options.values = [this.options.value];
 			}
 
 			$.ui.slider.prototype._create.call(this);
@@ -50,77 +41,56 @@
 
 		_renderTitle: function(index) {
 			if (this.options.title) {
-				$(this.handles[index]).attr('title', this.options.values[index]);
+				var value = this.options.values[index];
+				$(this.handles[index]).attr('title', $.isFunction(this.options.title) ? this.options.title(value) : value);
 			}
 		},
 
 		_renderTitles: function(index) {
-			var v;
-			for (v = 0; v < this.options.values.length; ++v) {
-				this._renderTitle(v);
+			if (this.options.title) {
+				var that = this;
+				$.each(this.options.values, function(v) {
+					that._renderTitle(v);
+				});
 			}
 		},
 
 		_renderLabel: function(index) {
 			if (this.options.label) {
-				var html = $('<div>').css({
-						'text-align': 'center'
-						,'font-size': '50%'
-						,'display': 'table-cell'
-						,'vertical-align': 'middle'
-					}).text(this.options.values[index]);
+				var value = this.options.values[index],
+					html = $('<div>').css({
+					'text-align':		'center'
+				,	'font-size':		'75%'
+				,	'display':			'table-cell'
+				,	'vertical-align':	'middle'
+				}).text($.isFunction(this.options.label) ? this.options.label(value) : value);
+				
 				$(this.handles[index]).html(html).css({
-						'text-decoration': 'none'
-						,'display': 'table'
-					});
+					'text-decoration':	'none'
+				,	'display':			'table'
+				});
 			}
 		},
 
 		_renderLabels: function() {
-			var v;
-			for (v = 0; v < this.options.values.length; ++v) {
-				this._renderLabel(v);
-			}
-		},
-
-		_renderRange: function(index) {
-//@todo
-			 var options = this.options,
-				values   = options.values,
-				scale    = function(value) {
-					return (value - options.min) * 100 / (options.max - options.min);
-				},
-				left,
-				right,
-				range;
-
-			$('.ui-slider-range', this.element).remove();
-
-			for (index = 0; index <= values.length; ++index) {
-				if (options.ranges[index]) {
-					left	= scale(index == 0? options.min : values[index - 1]);
-					right	= scale(index < values.length? values[index] : options.max);
-
-					range	= $('<div/>').addClass('ui-slider-range ui-widget-header').css('width', (right - left) + '%');
-
-					if (left == 0) {
-						range.addClass('ui-slider-range-min');
-					} else if (right == 100) {
-						range.addClass('ui-slider-range-max');
-					} else {
-						range.css('left', left+'%');
-					}
-					range.prependTo(this.element);
-				}
+			if (this.options.label) {
+				var that = this;
+				$.each(this.options.values, function(v) {
+					that._renderLabel(v);
+				});
 			}
 		},
 
 		_renderRanges: function() {
-			 var options = this.options,
-				values   = options.values,
-				scale    = function(value) {
-					return (value - options.min) * 100 / (options.max - options.min);
-				},
+			if (this.options.showRanges === false) {
+				return;
+			}
+
+			var options	= this.options,
+				values  = options.values,
+				scale   = function(value) {
+							return (value - options.min) * 100 / (options.max - options.min);
+						},
 				index,
 				left,
 				right,
@@ -148,38 +118,45 @@
 		},
 
 		_slide: function(event, index, newVal) {
-			var options = this.options,
-				values   = options.values,
-				gap      = options.gap,
-				limit    = options.limit,
-				limits   = options.limits;
-
-			// generic limit check
-			if (limit) {
-				//@todo if only [0] or no array, apply as left only
-				newVal = Math.max(newVal, limit[0]);
-				newVal = Math.min(newVal, limit[1]);
+			// Left limit
+			if (this.options.left) {
+				newVal = Math.max(newVal, this.options.left);
 			}
 
-			// specific limit check
-			if (limits && options.limits[index]) {
-				newVal = Math.max(newVal, limits[index][0]);
-				newVal = Math.min(newVal, limits[index][1]);
+			// Right limit
+			if (this.options.right) {
+				newVal = Math.min(newVal, this.options.right);
 			}
 
+			// Limit
+			if (this.options.limit) {
+				newVal = Math.max(newVal, this.options.limit[0]);
+				newVal = Math.min(newVal, this.options.limit[1]);
+			}
+
+			// Per-slider limit
+			if (this.options.limits && this.options.limits[index]) {
+				newVal = Math.max(newVal, this.options.limits[index][0]);
+				newVal = Math.min(newVal, this.options.limits[index][1]);
+			}
+
+			// Gap to previous
 			if (index > 0) {
-				 newVal = Math.max(newVal, values[index- 1] + gap);
+				 newVal = Math.max(newVal, this.options.values[index - 1] + this.options.gap);
 			}
 
-			if (index < values.length - 1) {
-				 newVal = Math.min(newVal, values[index + 1] - gap);
+			// Gap to next
+			if (index < this.options.values.length - 1) {
+				 newVal = Math.min(newVal, this.options.values[index + 1] - this.options.gap);
 			}
 
-		   this._renderRanges();
-		   this._renderLabel(index);
-		   this._renderTitle(index);
-
+			// Call parent
 			$.ui.slider.prototype._slide.call(this, event, index, newVal);
+
+			// Apply effects
+			this._renderRanges();
+			this._renderLabel(index);
+			this._renderTitle(index);
 		}
 	});
 }(jQuery));
