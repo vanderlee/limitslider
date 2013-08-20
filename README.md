@@ -1,30 +1,130 @@
 jQueryUI Limitslider
 ====================
+Version v0.1
 
-### values
-array or values
+By Martijn van der Lee (http://martijn.vanderlee.com)
 
-### title (default `false`)
-boolean or callback
+A slider allowing multiple sliders and ranges with all sorts of optional
+limitations in position/size/distance. Also includes optional labels on the
+sliders and hover titles.
 
-### label (default `false`)
-boolean or callback
+Uses jQueryUI's slider as basis, so both small and reliable.
 
-### min
-### max
-### limit
-### limits
-### ranges
-### gap
-### left
-### right
+Features
+--------
+-	Multiple sliders.
+-	Multiple ranges.
+-	Allows or blocks crossing of sliders.
+-	Minimum distance between sliders.
+-	Minimum/maximum position for all or individual sliders.
+-	Label on the sliders.
+-	Titles on sliders.
+-	Use all of jQueryUI's slider functionality.
 
-todo: All the inherited stuff from jquery slider
+Everything is optional. If you want, you can use the limitslider plugin like a
+plain slider.
 
+Download
+--------
+jQuery v1.3.0 or higher required.
+
+jQueryUI v1.8.0 or higher required.
+
+Current version: https://github.com/vanderlee/limitslider/archive/master.zip
+
+Sourcecode on Github: https://github.com/vanderlee/limitslider
+
+Quick start
+-----------
+Here's a short code fragment, demonstrating how to use limitslider.
+
+There are many more options to tailor it to your needs.
+
+	<div class="example-basic"></div>
+
+	<script class="prettyprint">
+		$(function() {
+			$('.example-basic').limitslider({
+				values:		[20, 50, 70]
+		   });
+		});
+	</script>
 
 Future
 ------
--	Implement some form of tickers
+-	Ticks
 -	Init event
--	Support for vertical ranges
--	Optional outside gaps
+-	Vertical ranges
+-	Title/label callback; index of slider, before/after ranges, options, etc.?
+-	Easy access to lengths or ranges in events
+-	Visual styling (i.e. height)
+
+Documentation
+=============
+'.limitslider(options)'
+-----------------------
+Create one or more limitsliders or access an existing limitslider.
+
+### Options
+
+-	**gap** (positive float, default: `undefined`)
+
+>	Sets the minimal distance between individual sliders. If set to `undefined`,
+	sliders may cross each other. Set to `0`, they may touch, but not cross.
+	Any greater value will force the sliders to be atleast the specified amount
+	apart.
+
+>	Units are in parts of the slider range defined by `min` and `max`.
+
+-	**label** (boolean or function, default: `false`)
+
+>	If enabled, each slider will have a label printed on it. By default, the
+	label will simply contain the current position number.
+
+>	Alternatively, you can set a function which will receive the current
+	position as it's first (and only) argument. The function should return a
+	string. Please keep in mind that space on the slider buttons is limited.
+
+-	**left** (positive float, default: `undefined`)
+
+>	@TODO
+
+-	**limit** (default: `undefined`)
+
+>	@TODO
+
+-	**limits** (default: `undefined`)
+
+>	@TODO
+
+-	**max** (positive float, default: `100`)
+
+>	@TODO
+
+-	**min** (positive float, default: `0`)
+
+>	@TODO
+
+-	**ranges** (default: `undefined`)
+
+>	@TODO
+
+-	**right** (default: `undefined`)
+
+>	@TODO
+
+-	**title** (boolean or function, default: `false`)
+
+>	@TODO
+
+-	**values** (default: `[]`)
+
+>	Array or values for the positions of the sliders. The number of items in
+	the array determines the number of sliders. If not specified, the plugin
+	will default to a single slider as per jQueryUI's slider.
+
+### Methods
+
+### Events
+
+@TODO: All the inherited stuff from jquery slider
