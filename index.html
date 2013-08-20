@@ -1,71 +1,270 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>jQuery LimitSlider</title>
+	<head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <title>jQuery.limitslider</title>
+
 		<!-- jQuery/jQueryUI (hosted) -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.3.0/jquery.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/jquery-ui.js"></script>
-		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.0/themes/sunny/jquery-ui.css" rel="stylesheet" type="text/css"/>
-        <style>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.js"></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.js"></script>
+		<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/themes/sunny/jquery-ui.css" rel="stylesheet" type="text/css"/>
+
+		<!-- Markdown parser -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/pagedown/1.0/Markdown.Converter.min.js"></script>
+
+		<!-- Prettyprint -->
+		<link href="https://google-code-prettify.googlecode.com/svn/loader/prettify.css" rel="stylesheet" type="text/css"/>
+		<script src="https://google-code-prettify.googlecode.com/svn/loader/prettify.js"></script>
+
+		<!-- Index -->
+		<style>
 			body {
-				font-family:	'Segoe UI', Verdana, Arial, Helvetica, sans-serif;
-				font-size:		62.5%;
+				font-family:			"Segoe UI", Verdana, Helvetica, Arial, sans-serif;
+				font-size:				11px;
+				padding:				3em 8em 1em 4em;
 			}
-        </style>
+
+			#menu {
+				margin-bottom:			2em;
+			}
+
+			#preview {
+				border:					solid thin silver;
+				padding:				2em;
+				margin:					0 20%;
+				text-align:				center;
+				box-shadow:				0 0 2em silver;
+			}
+
+			#book {
+				-webkit-columns:		460px;
+				   -moz-columns:		460px;
+						columns:		460px;
+
+				-webkit-column-gap:		4em;
+				   -moz-column-gap:		4em;
+						column-gap:		4em;
+
+				-webkit-column-rule:	thin solid silver;
+				   -moz-column-rule:	thin solid silver;
+						column-rule:	thin solid silver;
+
+				text-align:				justify;
+			}
+
+			h1,
+			h2 {
+				background:				black;
+				color:					white;
+				padding:				.2em .4em;
+			}
+			h1 {
+				-webkit-column-span:	all;
+						column-span:	all;
+				margin-top:				1em;
+			}
+			h2 {
+				background:				gray;
+			}
+
+			hr {
+				border-top:			double;
+				margin:				2em 25%;
+			}
+
+			#footer {
+				margin-top:			4em;
+				text-align:			center;
+				color:				silver;
+				border-top:			thin solid silver;
+				padding-top:		1em;
+			}
+
+			.output {
+				font-family:		monospace;
+				border:				solid thin silver;
+				padding:			.2em .4em;
+				background-color:	#cf3;
+			}
+
+			.clickable {
+				cursor:				pointer;
+			}
+
+			pre {
+				tab-size:			4;
+				overflow-x:			auto;
+				background-color:	#eee;
+				-webkit-column-break-inside: avoid;
+			}
+
+			@page {
+				@bottom-right {
+					content: counter(page) " of " counter(pages);
+				}
+			}
+		</style>
+		<script>
+			$(function() {
+				function tabsToSpaces(line, tabsize) {
+					var out		= '',
+						tabsize = tabsize || 4,
+						c;
+					for (c in line) {
+						var ch = line.charAt(c);
+						if (ch === '\t') {
+							do {
+								out += ' ';
+							} while (out.length % tabsize);
+						} else {
+							out += ch;
+						}
+					}
+					return out;
+				}
+
+				function visualizeElement(element, type) {
+					var code		= $(element).html().split('\n'),
+						tabsize		= 4,
+						minlength	= 2E53,
+						l;
+				
+					// Convert tabs to spaces
+					for (l in code) {
+						code[l] = tabsToSpaces(code[l], tabsize);
+					}
+
+					// determine minimum length
+					var minlength = 2E53;
+					var first = 2E53;
+					var last = 0;
+					for (l in code) {
+						if (/\S/.test(code[l])) {
+							minlength = Math.min(minlength, /^\s*/.exec(code[l])[0].length);
+							first = Math.min(first, l);
+							last = Math.max(last, l);
+						}
+					}
+
+					code = code.slice(first, last + 1);
+
+					// strip tabs at start
+					for (l in code) {
+						code[l] = code[l].slice(minlength);
+					}
+
+					// recombine
+					code = code.join('\n');
+
+					var fragment = $('<pre class="prettyprint"><code/></pre>').text(code).insertAfter(element);
+					$('<h3 class="clickable">'+type+'&hellip;</h3>').insertBefore(fragment).click(function() {
+						fragment.slideToggle();
+					});
+				}
+
+				// extract html fragments
+				$('div.prettyprint, span.prettyprint').each(function() {
+					visualizeElement(this, 'HTML');
+				});
+
+				// extract scripts
+				$('script.prettyprint').each(function() {
+					visualizeElement(this, 'Javascript');
+				});
+
+				// Include the readme
+				var markdown = new Markdown.Converter();
+				$.get('README.md', function(readme) {
+					$('#readme').html(markdown.makeHtml(readme));
+					$('#readme pre').addClass('prettyprint');
+					prettyPrint();
+
+					// build menu
+					var menuitems = [];
+					$('h1').each(function() {
+						var text	= $(this).text(),
+							id		= $(this).attr('id') || 'chapter '+text;
+						$(this).attr('id', id);
+						menuitems.push('<a href="#'+id+'">'+text+'</a>');
+					});
+					$(menu).html(menuitems.join(' &mdash; '));
+				});
+			});
+		</script>
+
+		<!-- Tristate -->
 		<script src="jquery.limitslider.js"></script>
     </head>
     <body>
-        <div id="switcher"></div>
+		<a href="https://github.com/vanderlee/limitslider"><img style="position: absolute; top: 0; right: 0; border: 0;" src="https://s3.amazonaws.com/github/ribbons/forkme_right_darkblue_121621.png" alt="Fork me on GitHub"></a>
 
-		<h1>jQuery LimitSlider</h1>
+		<div id="menu"></div>
 
-		<h2>Basic limit</h2>
-		<div id="basic"></div>
-		<script>
-           	$(function() {
-				$('#basic').limitslider({
-					values:		[60, 300, 500],
-					min:		0,
-					max:		600,
-					step:		0.5,
-					title:		function(v) { return (Math.round(v/6 * 100) / 100) + '%'; },
-					showRanges: true,
-					left:		7,
-					ranges:		[false,true,false,true]
-			   });
-			});
-		</script>
+		<div id="preview">
+			<div class="example-basic"></div>
+		</div>
 
-		<hr/>
+		<div id="book">
+			<div id="readme" class="chapter"></div>
 
-		<h2>10% gap</h2>
-		<div id="gap10"></div>
-		<script>
-           	$(function() {
-				$('#gap10').limitslider({
-					values:	[20, 50, 70],
-					min:	0,
-					max:	100,
-					gap:	10,
-					step:	5,
-					label:	true
-			   });
-			});
-		</script>
+			<div id="examples" class="chapter">
+				<h1>Examples</h1>
+				Try it yourself&hellip;
 
-		<hr/>
+				<h2>Quick start</h2>
+				A simple limitslider with multiple sliders<br/><br/>
+				<div class="prettyprint">
+					<div class="example-basic"></div>
+				</div>
+				<script class="prettyprint">
+					$(function() {
+						$('.example-basic').limitslider({
+							values:		[20, 50, 70]
+					   });
+					});
+				</script>
 
-		<h2>Basic limit</h2>
-		<div id="vertical" style="height:200px"></div>
-		<script>
-           	$(function() {
-				$('#vertical').limitslider({
-					orientation: 'vertical',
-					values:	[20, 50, 70],
-					min:	0,
-					max:	100
-			   });
-			});
-		</script>
-    </body>
+				<h2>Lots of features</h2>
+				Multiple sliders with...
+				<ul>
+					<li>gap of 10</li>
+					<li>left/right limits of 20-96</li>
+					<li>step 2</li>
+					<li>label</li>
+					<li>title (custom)</li>
+					<li>ranges on 2nd and 4th</li>
+				</ul>
+				<div class="prettyprint">
+					<div class="example-gaps"></div>
+				</div>
+				<script class="prettyprint">
+					$(function() {
+						$('.example-gaps').limitslider({
+							values:		[20, 50, 70],
+							gap:		10,
+							left:		20,
+							right:		96,
+							step:		2,
+							label:		true,
+							title:		function (value) {
+											return 'Currently set to '+value+'%';
+										},
+							showRanges: true,
+							ranges:		[false, true, false, true]
+					   });
+					});
+				</script>
+			</div>
+
+			<div id="unittest" class="chapter">
+				<h1>Unittest</h1>
+				jQuery.limitslider comes with QUnit-based unittests.<br/>
+				Click here to run the tests in a new window: <a href="unittest/index.html" target="_blank">Unittests</a>
+			</div>
+		</div>
+		
+		<div id="footer">
+			Copyright &copy; 2013 Martijn van der Lee. MIT Open Source license applies.
+		</div>
+	</body>
 </html>
