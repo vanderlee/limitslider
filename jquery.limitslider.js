@@ -135,12 +135,12 @@
 				newVal = Math.min(newVal, this.options.limits[index][1]);
 			}
 
-			if (this.options.gap) {
+			if (this.options.gap || this.options.gap === 0) {
 				// Gap to previous
 				if (index > 0) {
 					 newVal = Math.max(newVal, this.options.values[index - 1] + this.options.gap);
 				}
-
+				
 				// Gap to next
 				if (index < this.options.values.length - 1) {
 					 newVal = Math.min(newVal, this.options.values[index + 1] - this.options.gap);
