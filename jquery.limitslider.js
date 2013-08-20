@@ -16,15 +16,14 @@
 
 	$.widget('ui.limitslider', $.ui.slider, {
 		options: $.extend({
-			'gap':			0,
+			'gap':			undefined,
 			'left':			undefined,
 			'right':		undefined,
 			'limit':		undefined,
 			'limits':		undefined,
 			'ranges':		[],
 			'title':		false,
-			'label':		false,
-			'showRanges':	false
+			'label':		false
 		}, $.ui.slider.prototype.options),
 
 		_create: function() {
@@ -82,10 +81,6 @@
 		},
 
 		_renderRanges: function() {
-			if (this.options.showRanges === false) {
-				return;
-			}
-
 			var options	= this.options,
 				values  = options.values,
 				scale   = function(value) {
@@ -140,14 +135,16 @@
 				newVal = Math.min(newVal, this.options.limits[index][1]);
 			}
 
-			// Gap to previous
-			if (index > 0) {
-				 newVal = Math.max(newVal, this.options.values[index - 1] + this.options.gap);
-			}
+			if (this.options.gap) {
+				// Gap to previous
+				if (index > 0) {
+					 newVal = Math.max(newVal, this.options.values[index - 1] + this.options.gap);
+				}
 
-			// Gap to next
-			if (index < this.options.values.length - 1) {
-				 newVal = Math.min(newVal, this.options.values[index + 1] - this.options.gap);
+				// Gap to next
+				if (index < this.options.values.length - 1) {
+					 newVal = Math.min(newVal, this.options.values[index + 1] - this.options.gap);
+				}
 			}
 
 			// Call parent
