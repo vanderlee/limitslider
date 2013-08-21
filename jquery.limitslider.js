@@ -14,7 +14,7 @@
 ;(function ($) {
 	"use strict";
 
-	$.widget('ui.limitslider', $.ui.slider, {
+	$.widget('vanderlee.limitslider', $.ui.slider, {
 		options: $.extend({
 			'gap':			undefined,
 			'left':			undefined,
@@ -32,6 +32,8 @@
 			}
 
 			$.ui.slider.prototype._create.call(this);
+
+			$(this.element).addClass('ui-limitslider');
 
 			this._renderRanges();
 			this._renderLabels();
@@ -63,7 +65,7 @@
 				,	'display':			'table-cell'
 				,	'vertical-align':	'middle'
 				}).text($.isFunction(this.options.label) ? this.options.label(value) : value);
-				
+
 				$(this.handles[index]).html(html).css({
 					'text-decoration':	'none'
 				,	'display':			'table'
@@ -140,7 +142,7 @@
 				if (index > 0) {
 					 newVal = Math.max(newVal, this.options.values[index - 1] + this.options.gap);
 				}
-				
+
 				// Gap to next
 				if (index < this.options.values.length - 1) {
 					 newVal = Math.min(newVal, this.options.values[index + 1] - this.options.gap);
