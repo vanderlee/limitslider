@@ -78,20 +78,17 @@ Create one or more limitsliders or access an existing limitslider.
 
 -	**label** (boolean or function, default: `false`)
 
->	If enabled, each slider will have a label printed on it. By default, the
-	label will simply contain the current position number.
+>	If enabled, each slider will have a label printed on it.
+
+>	By default, the	label will simply contain the current position number.
 
 >	Alternatively, you can set a function which will receive the current
 	position as it's first (and only) argument. The function should return a
 	string. Please keep in mind that space on the slider buttons is limited.
 
--	**left** (positive float, default: `undefined`)
-
->	@TODO
-
 -	**limit** (default: `undefined`)
 
->	@TODO
+>	Sets the lower and upper limit (or gap) of all sliders.
 
 -	**limits** (default: `undefined`)
 
@@ -99,23 +96,25 @@ Create one or more limitsliders or access an existing limitslider.
 
 -	**max** (positive float, default: `100`)
 
->	@TODO
+>	The maximum value of the range.
 
 -	**min** (positive float, default: `0`)
 
->	@TODO
+>	The minimum value of the range.
 
 -	**ranges** (default: `undefined`)
 
 >	@TODO
 
--	**right** (default: `undefined`)
-
->	@TODO
-
 -	**title** (boolean or function, default: `false`)
 
->	@TODO
+>	If enabled, each slider will have a title shown by hovering over it.
+
+>	By default, the title will simply contain the current position number.
+
+>	Alternatively, you can set a function which will receive the current
+	position as it's first (and only) argument. The function should return a
+	string.
 
 -	**values** (default: `[]`)
 
