@@ -1,13 +1,13 @@
 /*jslint devel: true, bitwise: true, regexp: true, browser: true, confusion: true, unparam: true, eqeq: true, white: true, nomen: true, plusplus: true, maxerr: 50, indent: 4 */
 /*globals jQuery */
 
-/*
+/*!
  * LimitSlider
  *
  * Copyright (c) 2011-2013 Martijn W. van der Lee
  * Licensed under the MIT.
- *
- * Slider extension with forced limits and gaps.
+ */
+/* Slider extension with forced limits and gaps.
  * Optional ranges, titles and labels.
  */
 
