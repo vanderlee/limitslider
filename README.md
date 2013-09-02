@@ -2,7 +2,8 @@ jQueryUI Limitslider
 ====================
 Version v1.0
 
-By Martijn van der Lee (http://martijn.vanderlee.com)
+Copyright &copy; 2013 Martijn van der Lee (http://martijn.vanderlee.com).
+MIT Open Source license applies.
 
 A slider allowing multiple sliders and ranges with all sorts of optional
 limitations in position/size/distance. Also includes optional labels on the
@@ -42,11 +43,9 @@ There are many more options to tailor it to your needs.
 
 	<div class="example-basic"></div>
 
-	<script class="prettyprint">
+	<script>
 		$(function() {
-			$('.example-basic').limitslider({
-				values:		[20, 50, 70]
-		   });
+			$('.coverflow').coverflow();
 		});
 	</script>
 

@@ -1,6 +1,6 @@
 {
 	"name": "jqlimitslider",
-	"version": "1.0",
+	"version": "1.0.0",
 	"title": "Vanderlee Limitslider",
 	"description": "Extension the standard jQueryUI slider allowing multiple handles. Each handle can have it's own range limitations. Can also guarentee order and distance between handles.",
 	"author": {
