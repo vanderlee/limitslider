@@ -64,7 +64,7 @@
 				,	'font-size':		'75%'
 				,	'display':			'table-cell'
 				,	'vertical-align':	'middle'
-				}).text($.isFunction(this.options.label) ? this.options.label(value) : value);
+				}).html($.isFunction(this.options.label) ? this.options.label(value) : value);
 
 				$(this.handles[index]).html(html).css({
 					'text-decoration':	'none'
