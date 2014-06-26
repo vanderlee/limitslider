@@ -45,7 +45,7 @@ There are many more options to tailor it to your needs.
 
 	<script>
 		$(function() {
-			$('.coverflow').coverflow();
+			$('.example-basic').limitslider();
 		});
 	</script>
 
