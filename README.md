@@ -64,6 +64,15 @@ Documentation
 -----------------------
 Create one or more limitsliders or access an existing limitslider.
 
+Limitslider is based on the standard jQueryUI Slider widget and inherits it's
+API interface.
+
+This means all options, methods and events describer for it are
+supported in addition to all the options, methods and events described below.
+
+API documentation for jQueryUI Slider can be found here:
+http://api.jqueryui.com/slider/
+
 ### Options
 
 -	**gap** (positive float, default: `undefined`)
@@ -123,6 +132,36 @@ Create one or more limitsliders or access an existing limitslider.
 
 ### Methods
 
+-	**destroy**  (inherited from jQueryUI slider)
+
+-	**disable**  (inherited from jQueryUI slider)
+
+-	**enable**  (inherited from jQueryUI slider)
+
+-	**instance**  (inherited from jQueryUI slider)
+
+-	**option**  (inherited from jQueryUI slider)
+
+>	Also supports all the additional options for the limitslider widget.
+
+-	**value**  (inherited from jQueryUI slider)
+
+-	**values** (inherited from jQueryUI slider)
+
+>	Get the value for all handles.
+
+>	Code example `var values = $(".selector").slider("values");`
+
+-	**widget** (inherited from jQueryUI slider)
+
 ### Events
 
-@TODO: All the inherited stuff from jquery slider
+-	**change** (inherited from jQueryUI slider)
+
+-	**create** (inherited from jQueryUI slider)
+
+-	**slide** (inherited from jQueryUI slider)
+
+-	**start** (inherited from jQueryUI slider)
+
+-	**stop** (inherited from jQueryUI slider)
