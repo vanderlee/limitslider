@@ -43,7 +43,7 @@
 		_renderTitle: function(index) {
 			if (this.options.title) {
 				var value = this.options.values[index];
-				$(this.handles[index]).attr('title', $.isFunction(this.options.title) ? this.options.title(value) : value);
+				$(this.handles[index]).attr('title', $.isFunction(this.options.title) ? this.options.title(value) : value).addClass( index % 2 ? 'ui-slider-handle-close' : '');
 			}
 		},
 
