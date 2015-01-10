@@ -172,6 +172,11 @@
 					visualizeElement(this, 'Javascript');
 				});
 
+				// extract CSS
+				$('style.prettyprint').each(function() {
+					visualizeElement(this, 'Stylesheet');
+				});
+
 				// Include the readme
 				var markdown = new Markdown.Converter();
 				$.get('README.md', function(readme) {
@@ -203,7 +208,8 @@
 		<div id="preview">
 			<div class="example-basic"></div>
 		</div>
-
+		<br/><br/>
+	
 		<div id="book">
 			<div id="readme" class="chapter"></div>
 
@@ -237,6 +243,28 @@
 				<div class="prettyprint">
 					<div class="example-gaps"></div>
 				</div>
+				<style class="prettyprint">		
+					.example-gaps .ui-slider-handle {
+						font-size: 1.5em;
+						top: -.4em;
+					}
+					
+					.example-gaps .ui-slider-handle-odd {
+						border-top-right-radius: 0;
+						border-bottom-right-radius: 0;
+						border-right-width: .5em;
+						background: #f99;
+						border-color: #c33;
+					}
+
+					.example-gaps .ui-slider-handle-even {
+						border-top-left-radius: 0;
+						border-bottom-left-radius: 0;
+						border-left-width: .5em;
+						background: #99f;
+						border-color: #33c;
+					}		
+				</style>				
 				<script class="prettyprint">
 					$(function() {
 						$('.example-gaps').limitslider({

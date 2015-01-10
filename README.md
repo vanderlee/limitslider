@@ -1,8 +1,8 @@
 jQueryUI Limitslider
 ====================
-Version v1.0
+Version v1.1
 
-Copyright &copy; 2013 Martijn van der Lee (http://martijn.vanderlee.com).
+Copyright &copy; 2011-2015 Martijn van der Lee (http://martijn.vanderlee.com).
 MIT Open Source license applies.
 
 A slider allowing multiple sliders and ranges with all sorts of optional
@@ -74,6 +74,16 @@ API documentation for jQueryUI Slider can be found here:
 http://api.jqueryui.com/slider/
 
 ### Options
+
+-	**classEven** (string, default: `ui-slider-handle-even`)
+
+>	Name of a class that is set for every even (second, fourth, etc.) slider
+	handle.
+
+-	**classOdd** (string, default: `ui-slider-handle-odd`)
+
+>	Name of a class that is set for every odd (first, third, etc.) slider
+	handle.
 
 -	**gap** (positive float, default: `undefined`)
 

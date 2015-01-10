@@ -4,7 +4,7 @@
 /*!
  * LimitSlider
  *
- * Copyright (c) 2011-2013 Martijn W. van der Lee
+ * Copyright (c) 2011-2015 Martijn W. van der Lee
  * Licensed under the MIT.
  */
 /* Slider extension with forced limits and gaps.
@@ -16,6 +16,8 @@
 
 	$.widget('vanderlee.limitslider', $.ui.slider, {
 		options: $.extend({
+			'classEven':	'ui-slider-handle-even',
+			'classOdd':		'ui-slider-handle-odd',
 			'gap':			undefined,
 			'left':			undefined,
 			'right':		undefined,
@@ -43,7 +45,9 @@
 		_renderTitle: function(index) {
 			if (this.options.title) {
 				var value = this.options.values[index];
-				$(this.handles[index]).attr('title', $.isFunction(this.options.title) ? this.options.title(value) : value);
+				$(this.handles[index])
+						.attr('title', $.isFunction(this.options.title) ? this.options.title(value) : value)
+						.addClass(this.options[index % 2 ? 'classEven' : 'classOdd']);
 			}
 		},
 
