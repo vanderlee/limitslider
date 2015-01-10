@@ -31,9 +31,10 @@
 
 		<h2>Basic limit</h2>
 		<div id="basic"></div>
+		<button id="basic-set">Set</button>		
 		<script>
            	$(function() {
-				$('#basic').limitslider({
+				var myslider = $('#basic').limitslider({
 					values:		[60, 300, 500],
 					min:		0,
 					max:		600,
@@ -42,9 +43,13 @@
 					showRanges: true,
 					left:		7,
 					ranges:		[false,true,false,true]
-			   });
+				});
+			   
+				$('#basic-set').click(function(){
+					myslider.limitslider('values', 0, 50);
+				});
 			});
-		</script>
+		</script>	
 
 		<hr/>
 

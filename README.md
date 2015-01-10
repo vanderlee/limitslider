@@ -1,6 +1,6 @@
 jQueryUI Limitslider
 ====================
-Version v1.1
+Version v1.1.1
 
 Copyright &copy; 2011-2015 Martijn van der Lee (http://martijn.vanderlee.com).
 MIT Open Source license applies.

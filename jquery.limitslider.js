@@ -155,11 +155,16 @@
 
 			// Call parent
 			$.ui.slider.prototype._slide.call(this, event, index, newVal);
-
-			// Apply effects
+		},
+		
+		_change: function(event, index) {
+			// Call parent
+			$.ui.slider.prototype._change.call(this, event, index);
+			
+			// Apply visuals
 			this._renderRanges();
 			this._renderLabel(index);
-			this._renderTitle(index);
+			this._renderTitle(index);			
 		}
 	});
 }(jQuery));
