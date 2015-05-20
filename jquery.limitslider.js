@@ -100,11 +100,13 @@
 			$('.ui-slider-range', this.element).remove();
 
 			for (index = 0; index <= values.length; ++index) {
-				if (options.ranges[index]) {
+				var range = options.ranges[index];
+				if (range) {
 					left = scale(index == 0? options.min : values[index - 1]);
 					right = scale(index < values.length? values[index] : options.max);
+					var styleClass = 'ui-slider-range ui-widget-header ' + (range.styleClass ? range.styleClass : '');
 
-					range = $('<div/>').addClass('ui-slider-range ui-widget-header').css('width', (right - left) + '%');
+					range = $('<div/>').addClass(styleClass).css('width', (right - left) + '%');
 
 					if (left == 0) {
 						range.addClass('ui-slider-range-min');
