@@ -15,7 +15,7 @@ qunit.jqui.tests({
 
 		equal(s.is(':visible'),			true,	"It's visible");
 
-		deepEqual(s.limitslider('values'),	[10,50],		"Initial values");
+		deepEqual(s.limitslider('values'),	[10,50],	"Initial values");
 
 		h0.simulate("drag", { x: 10 } );
 		deepEqual(s.limitslider('values'),	[0,50],		"Drag to start");
