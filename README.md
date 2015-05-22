@@ -1,6 +1,6 @@
 jQueryUI Limitslider
 ====================
-Version v1.1.1
+Version 1.1.2
 
 Copyright &copy; 2011-2015 Martijn van der Lee (http://martijn.vanderlee.com).
 MIT Open Source license applies.
@@ -73,105 +73,96 @@ supported in addition to all the options, methods and events described below.
 API documentation for jQueryUI Slider can be found here:
 http://api.jqueryui.com/slider/
 
-### Options
+Options
+-------
+### **classEven** (string, default: `ui-slider-handle-even`)
+Name of a class that is set for every even (second, fourth, etc.) slider handle.
 
--	**classEven** (string, default: `ui-slider-handle-even`)
+### **classOdd** (string, default: `ui-slider-handle-odd`)
+Name of a class that is set for every odd (first, third, etc.) slider handle.
 
->	Name of a class that is set for every even (second, fourth, etc.) slider
-	handle.
+### **gap** (positive float, default: `undefined`)
+Sets the minimal distance between individual sliders. If set to `undefined`,
+sliders may cross each other. Set to `0`, they may touch, but not cross.
+Any greater value will force the sliders to be atleast the specified amount
+apart.
 
--	**classOdd** (string, default: `ui-slider-handle-odd`)
+Units are in parts of the slider range defined by `min` and `max`.
 
->	Name of a class that is set for every odd (first, third, etc.) slider
-	handle.
+### **label** (boolean or function, default: `false`)
+If enabled, each slider will have a label printed on it.
 
--	**gap** (positive float, default: `undefined`)
+By default, the	label will simply contain the current position number.
 
->	Sets the minimal distance between individual sliders. If set to `undefined`,
-	sliders may cross each other. Set to `0`, they may touch, but not cross.
-	Any greater value will force the sliders to be atleast the specified amount
-	apart.
+Alternatively, you can set a function which will receive the current position
+as it's first (and only) argument. The function should return a	string.
+Please keep in mind that space on the slider buttons is limited.
 
->	Units are in parts of the slider range defined by `min` and `max`.
+### **limit** (default: `undefined`)
+Sets the lower and upper limit (or gap) of all sliders.
 
--	**label** (boolean or function, default: `false`)
+### **limits** (default: `undefined`)
+@TODO
 
->	If enabled, each slider will have a label printed on it.
+### **max** (positive float, default: `100`)
+The maximum value of the range.
 
->	By default, the	label will simply contain the current position number.
+### **min** (positive float, default: `0`)
+The minimum value of the range.
 
->	Alternatively, you can set a function which will receive the current
-	position as it's first (and only) argument. The function should return a
-	string. Please keep in mind that space on the slider buttons is limited.
+### **ranges** (default: `undefined`)
+Sets any marked ranges that are visible. If defined, must be an array with at
+most the number of sliders + 1 (for each range to the left of each slider and
+one additional at the right side). A `false` value means the corresponding
+range is not marked. A `true` value does mark the range.
 
--	**limit** (default: `undefined`)
+You may also use an object for each position, with a `class` property which will
+be set for the corresponding range, in addition to the normal marking. i.e.
+`{'class': 'red-range'}`.
 
->	Sets the lower and upper limit (or gap) of all sliders.
+### **title** (boolean or function, default: `false`)
+If enabled, each slider will have a title shown by hovering over it.
 
--	**limits** (default: `undefined`)
+By default, the title will simply contain the current position number.
 
->	@TODO
+Alternatively, you can set a function which will receive the current position as
+it's first (and only) argument. The function should return a string.
 
--	**max** (positive float, default: `100`)
+### **values** (default: `[]`)
+Array or values for the positions of the sliders. The number of items in the 
+array determines the number of sliders. If not specified, the plugin will 
+default to a single slider as per jQueryUI's slider.
 
->	The maximum value of the range.
+Methods
+-------
+### **destroy**  (inherited from jQueryUI slider)
 
--	**min** (positive float, default: `0`)
+### **disable**  (inherited from jQueryUI slider)
 
->	The minimum value of the range.
+### **enable**  (inherited from jQueryUI slider)
 
--	**ranges** (default: `undefined`)
+### **instance**  (inherited from jQueryUI slider)
 
->	@TODO
+### **option**  (inherited from jQueryUI slider)
+Also supports all the additional options for the limitslider widget.
 
--	**title** (boolean or function, default: `false`)
+### **value**  (inherited from jQueryUI slider)
 
->	If enabled, each slider will have a title shown by hovering over it.
+### **values** (inherited from jQueryUI slider)
+Get the value for all handles.
 
->	By default, the title will simply contain the current position number.
+Code example `var values = $(".selector").slider("values");`
 
->	Alternatively, you can set a function which will receive the current
-	position as it's first (and only) argument. The function should return a
-	string.
+### **widget** (inherited from jQueryUI slider)
 
--	**values** (default: `[]`)
+Events
+------
+### **change** (inherited from jQueryUI slider)
 
->	Array or values for the positions of the sliders. The number of items in
-	the array determines the number of sliders. If not specified, the plugin
-	will default to a single slider as per jQueryUI's slider.
+### **create** (inherited from jQueryUI slider)
 
-### Methods
+### **slide** (inherited from jQueryUI slider)
 
--	**destroy**  (inherited from jQueryUI slider)
+### **start** (inherited from jQueryUI slider)
 
--	**disable**  (inherited from jQueryUI slider)
-
--	**enable**  (inherited from jQueryUI slider)
-
--	**instance**  (inherited from jQueryUI slider)
-
--	**option**  (inherited from jQueryUI slider)
-
->	Also supports all the additional options for the limitslider widget.
-
--	**value**  (inherited from jQueryUI slider)
-
--	**values** (inherited from jQueryUI slider)
-
->	Get the value for all handles.
-
->	Code example `var values = $(".selector").slider("values");`
-
--	**widget** (inherited from jQueryUI slider)
-
-### Events
-
--	**change** (inherited from jQueryUI slider)
-
--	**create** (inherited from jQueryUI slider)
-
--	**slide** (inherited from jQueryUI slider)
-
--	**start** (inherited from jQueryUI slider)
-
--	**stop** (inherited from jQueryUI slider)
+### **stop** (inherited from jQueryUI slider)
