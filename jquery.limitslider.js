@@ -110,8 +110,8 @@
 						.addClass('ui-slider-range ui-widget-header')
 						.css('width', (right - left) + '%');
 
-					if (range.class) {
-						sliderRange.addClass(range.class);
+					if (range.styleClass) {
+						sliderRange.addClass(range.styleClass);
 					}
 
 					if (left == 0) {

@@ -1,6 +1,6 @@
 jQueryUI Limitslider
 ====================
-Version 1.1.2
+Version 1.1.3
 
 Copyright &copy; 2011-2015 Martijn van der Lee (http://martijn.vanderlee.com).
 MIT Open Source license applies.
@@ -118,7 +118,7 @@ range is not marked. A `true` value does mark the range.
 
 You may also use an object for each position, with a `class` property which will
 be set for the corresponding range, in addition to the normal marking. i.e.
-`{'class': 'red-range'}`.
+`{'styleClass': 'red-range'}`.
 
 ### **title** (boolean or function, default: `false`)
 If enabled, each slider will have a title shown by hovering over it.
