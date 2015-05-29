@@ -11,7 +11,7 @@
  * Optional ranges, titles and labels.
  */
 
-;(function ($) {
+;(function ($, undefined) {
 	"use strict";
 
 	$.widget('vanderlee.limitslider', $.ui.slider, {
@@ -175,6 +175,58 @@
 			this._renderRanges();
 			this._renderLabel(index);
 			this._renderTitle(index);			
+		},
+		
+		insert: function(index, value, range, limit) {
+			var max = this.options.values.length,
+				prev,
+				next;
+					
+			index = (index === null || typeof index === 'undefined')
+					? max 
+					: Math.max(0, Math.min(index, max));				
+			
+			if (typeof value === 'undefined') {
+				prev = index <= 0 ? this.options.min : this.options.values[index - 1],
+				next = index >= max ? this.options.max : this.options.values[index];
+				value = Math.round((prev + next) * .5);
+			}
+						
+			this.options.values.splice(index, 0, value);
+			if (this.options.ranges) {
+				this.options.ranges.splice(index, 0, range || false);
+			}
+			if (this.options.limits) {
+				this.options.limits.splice(index, 0, range || undefined);
+			}
+			
+			this._create();
+			this.element.trigger('slide', [index, value]);
+			
+			return this;
+		},
+		
+		remove: function(index, length) {
+			var max = this.options.values.length - 1;					
+			length = Math.max(1, length || 1);
+			
+			if (max > length - 1) {			
+				index = (index === null || typeof index === 'undefined')
+						? max + 1 - length
+						: Math.max(0, Math.min(index, max));				
+
+				this.options.values.splice(index, length);
+				if (this.options.ranges) {
+					this.options.ranges.splice(index, length);
+				}
+				if (this.options.limits) {
+					this.options.limits.splice(index, length);
+				}
+
+				this._create();
+			}
+			
+			return this;			
 		}
 	});
 }(jQuery));

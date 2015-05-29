@@ -1,6 +1,6 @@
 jQueryUI Limitslider
 ====================
-Version 1.1.3
+Version 1.2.0
 
 Copyright &copy; 2011-2015 Martijn van der Lee (http://martijn.vanderlee.com).
 MIT Open Source license applies.
@@ -25,13 +25,12 @@ Features
 Everything is optional. If you want, you can use the limitslider plugin like a
 plain slider.
 
-Download
---------
-jQuery v1.3.0 or higher required.
+Installation
+------------
+-	jQuery v1.3.0 or higher required (tested upto v2.1.4).
+-	jQueryUI v1.8.0 or higher required (tested upto v1.11.4).
 
-jQueryUI v1.8.0 or higher required.
-
-Current version: https://github.com/vanderlee/limitslider/archive/master.zip
+Latest version: https://github.com/vanderlee/limitslider/archive/master.zip
 
 Sourcecode on Github: https://github.com/vanderlee/limitslider
 
@@ -136,15 +135,48 @@ default to a single slider as per jQueryUI's slider.
 Methods
 -------
 ### **destroy**  (inherited from jQueryUI slider)
+Completely remove the slide control.
 
 ### **disable**  (inherited from jQueryUI slider)
+Disable the slider control.
 
 ### **enable**  (inherited from jQueryUI slider)
+Enabled the slider control.
+
+### **insert** `(index, value, range, limit)`
+Insert a new slider at the specified `index` with value `value`.
+All arguments are optional.
+
+-	**`index`** The 0-based position in the `values` options array before which
+	to insert.
+	Specify 0 to insert before all current handles or the length of the array
+	to insert after all current handles.
+	If not specified, the new handle will be inserted after all current handles.
+
+-	**`value`** The value of the new handle. If not specified, the value will
+	be automatically calculated averaged for the surrounding handles.
+
+-	**`range`** The range for the new handle. If not specified, the range will
+	be `false`.
+
+-	**`limit`** The handle-specific limit for the new handle. If not specified,
+	no handle-specific limit will be set. All global limits will still apply.
 
 ### **instance**  (inherited from jQueryUI slider)
 
 ### **option**  (inherited from jQueryUI slider)
 Also supports all the additional options for the limitslider widget.
+
+### **remove** `(index, length)`
+Insert a new slider at the specified `index` with value `value`.
+All arguments are optional.
+
+-	**`index`** The 0-based position in the `values` options array at which to
+	start removing. If not specified, the last handle(s) will be removed.
+
+-	**`length`** The number of handles to remove. If not specified, one handle
+	will be removed. If the length is greater than the number of current
+	handles, no handles will be removed.
 
 ### **value**  (inherited from jQueryUI slider)
 
@@ -154,6 +186,7 @@ Get the value for all handles.
 Code example `var values = $(".selector").slider("values");`
 
 ### **widget** (inherited from jQueryUI slider)
+Get a reference to the actual widget.
 
 Events
 ------
