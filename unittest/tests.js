@@ -54,5 +54,33 @@ qunit.jqui.tests({
 
 		h0.simulate("drag", { x: 1000, moves: 100 } );
 		deepEqual(s.limitslider('values'),	[40, 50],	"Stop drag at gap 0");
+	},
+	
+	"Index in title": function() {
+		'use strict';
+
+		var slider = $('<div/>').appendTo('body');
+		slider.limitslider({
+			values:		[10,50],
+			title:		function(value, index) { return 'index-'+(index+1); }
+		});
+		var handles = slider.find('.ui-slider-handle');
+
+		equal(handles.eq(0).attr('title'), 'index-1', "First slider");
+		equal(handles.eq(1).attr('title'), 'index-2', "First slider");		
+	},
+	
+	"Index in label": function() {
+		'use strict';
+
+		var slider = $('<div/>').appendTo('body');
+		slider.limitslider({
+			values:		[10,50],
+			label:		function(value, index) { return 'label-'+(index+1); }
+		});
+		var handles = slider.find('.ui-slider-handle');
+
+		equal(handles.eq(0).text(), 'label-1', "First slider");
+		equal(handles.eq(1).text(), 'label-2', "First slider");		
 	}
 });

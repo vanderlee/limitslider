@@ -46,7 +46,7 @@
 			if (this.options.title) {
 				var value = this.options.values[index];
 				$(this.handles[index])
-						.attr('title', $.isFunction(this.options.title) ? this.options.title(value) : value)
+						.attr('title', $.isFunction(this.options.title) ? this.options.title(value, index) : value)
 						.addClass(this.options[index % 2 ? 'classEven' : 'classOdd']);
 			}
 		},
@@ -68,7 +68,7 @@
 				,	'font-size':		'75%'
 				,	'display':			'table-cell'
 				,	'vertical-align':	'middle'
-				}).html($.isFunction(this.options.label) ? this.options.label(value) : value);
+				}).html($.isFunction(this.options.label) ? this.options.label(value, index) : value);
 
 				$(this.handles[index]).html(html).css({
 					'text-decoration':	'none'

@@ -1,6 +1,6 @@
 jQueryUI Limitslider
 ====================
-Version 1.2.0
+Version 1.3.0
 
 Copyright &copy; 2011-2015 Martijn van der Lee (http://martijn.vanderlee.com).
 MIT Open Source license applies.
@@ -94,7 +94,9 @@ If enabled, each slider will have a label printed on it.
 By default, the	label will simply contain the current position number.
 
 Alternatively, you can set a function which will receive the current position
-as it's first (and only) argument. The function should return a	string.
+as it's first argument and the 0-based index of the handle as the second
+argument. The function should return a string.
+
 Please keep in mind that space on the slider buttons is limited.
 
 ### **limit** (default: `undefined`)
@@ -124,8 +126,9 @@ If enabled, each slider will have a title shown by hovering over it.
 
 By default, the title will simply contain the current position number.
 
-Alternatively, you can set a function which will receive the current position as
-it's first (and only) argument. The function should return a string.
+Alternatively, you can set a function which will receive the current position
+as it's first argument and the 0-based index of the handle as the second
+argument. The function should return a string.
 
 ### **values** (default: `[]`)
 Array or values for the positions of the sliders. The number of items in the 
