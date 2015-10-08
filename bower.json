@@ -1,11 +1,11 @@
 {
-  "name": "Vanderlee Limitslider",
+  "name": "limitslider",
   "version": "1.3.0",
   "homepage": "http://vanderlee.github.com/limitslider",
   "authors": [
     "Martijn van der Lee <martijn@vanderlee.com>"
   ],
-  "description": "Extension to the standard jQueryUI slider allowing multiple handles. Each handle can have it's own range limitations. Can also guarentee order and distance between handles.",
+  "description": "Extends standard jQueryUI slider with multiple handles. Fixed handle order and spacing, per-handle range limits.",
   "main": "jquery.limitslider.js",
   "keywords": [
     "jquery", "slider", "limit", "range", "multi", "multiple"
