@@ -4,7 +4,7 @@
 /*!
  * LimitSlider
  *
- * Copyright (c) 2011-2015 Martijn W. van der Lee
+ * Copyright (c) 2011-2016 Martijn W. van der Lee
  * Licensed under the MIT.
  */
 /* Slider extension with forced limits and gaps.
@@ -60,20 +60,26 @@
 			}
 		},
 
-		_renderLabel: function(index) {
+		_renderLabel: function(index, init) {
 			if (this.options.label) {
 				var value = this.options.values[index],
-					html = $('<div>').css({
-					'text-align':		'center'
-				,	'font-size':		'75%'
-				,	'display':			'table-cell'
-				,	'vertical-align':	'middle'
-				}).html($.isFunction(this.options.label) ? this.options.label(value, index) : value);
+					text = $.isFunction(this.options.label) ? this.options.label(value, index) : value;					
 
-				$(this.handles[index]).html(html).css({
-					'text-decoration':	'none'
-				,	'display':			'table'
-				});
+				if (init) {
+					var html = $('<div>').css({
+						'text-align':		'center'
+					,	'font-size':		'75%'
+					,	'display':			'table-cell'
+					,	'vertical-align':	'middle'
+					}).html(text);
+					
+					$(this.handles[index]).html(html).css({
+						'text-decoration':	'none'
+					,	'display':			'table'
+					});
+				} else {
+                    $('> div', this.handles[index]).html(text);
+                }
 			}
 		},
 
@@ -81,7 +87,7 @@
 			if (this.options.label) {
 				var that = this;
 				$.each(this.options.values, function(v) {
-					that._renderLabel(v);
+					that._renderLabel(v, true);
 				});
 			}
 		},
