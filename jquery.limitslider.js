@@ -203,7 +203,7 @@
 				this.options.ranges.splice(index, 0, range || false);
 			}
 			if (this.options.limits) {
-				this.options.limits.splice(index, 0, range || undefined);
+				this.options.limits.splice(index, 0, limit || undefined);
 			}
 			
 			this._create();

@@ -81,6 +81,22 @@ qunit.jqui.tests({
 		var handles = slider.find('.ui-slider-handle');
 
 		equal(handles.eq(0).text(), 'label-1', "First slider");
-		equal(handles.eq(1).text(), 'label-2', "First slider");		
+		equal(handles.eq(1).text(), 'label-2', "First slider");
+	},
+
+	"Insert preserves the per-handle limit": function() {
+		'use strict';
+
+		var slider = $('<div/>').appendTo('body');
+		slider.limitslider({
+			values:		[10, 50],
+			limits:		[[0, 20], [40, 60]]
+		});
+
+		slider.limitslider('insert', 1, 30, false, [25, 35]);
+
+		deepEqual(slider.limitslider('option', 'limits'),
+			[[0, 20], [25, 35], [40, 60]],
+			"Inserted limit is stored at the new handle index");
 	}
 });

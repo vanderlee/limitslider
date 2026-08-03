@@ -171,7 +171,7 @@ All arguments are optional.
 Also supports all the additional options for the limitslider widget.
 
 ### **remove** `(index, length)`
-Insert a new slider at the specified `index` with value `value`.
+Remove one or more slider handles starting at the specified `index`.
 All arguments are optional.
 
 -	**`index`** The 0-based position in the `values` options array at which to
